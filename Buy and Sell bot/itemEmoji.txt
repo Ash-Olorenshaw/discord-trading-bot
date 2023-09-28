@@ -1,0 +1,8 @@
+:apple: Apple
+:tent: Tent
+:diya_lamp: Oil Lamp
+:blue_car: Car
+:house: House
+:french_bread: Baguette
+:computer: laptop
+:mobile_phone: Phone
