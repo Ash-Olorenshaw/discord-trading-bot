@@ -1,1 +1,5 @@
-/venv
+venv
+src/__pycache__
+src/.env
+src/networth.txt
+src/prices.txt
