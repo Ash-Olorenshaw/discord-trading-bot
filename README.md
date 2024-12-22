@@ -44,9 +44,9 @@ vi ./.env
 
 The following fields are required for the .env file (without '<>'s):
 
-```nu-script
+```Python
 DISCORD_TOKEN=<Your Bot Discord Token>
-ADMIN=<Admin username>
+ADMIN=<Admin Username>
 ```
 
 Now that the .env file is created, you can run the server.
