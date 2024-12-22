@@ -14,7 +14,7 @@ Users then have their items' overall worth calculated each day in a networth whi
 
 To get started with the Discord Trading Bot, do the following:
 
-```F#
+```nu-script
 # download this repo
 git clone "https://github.com/Ash-Olorenshaw/discord-trading-bot.git"
 
@@ -28,13 +28,13 @@ pip install -r requirements.txt
 Now that you have the dependencies installed, you'll need the `.env` file to store the admin username and bot token
 The `.env` file can be created like so:
 
-```F#
+```nu-script
 touch ./.env
 ```
 
 Now that the file is created you need to populate it with the correct info:
 
-```F#
+```nu-script
 # *nix systems
 vi ./.env
 
@@ -44,14 +44,14 @@ vi ./.env
 
 The following fields are required for the .env file (without '<>'s):
 
-```F#
+```nu-script
 DISCORD_TOKEN=<Your Bot Discord Token>
 ADMIN=<Admin username>
 ```
 
 Now that the .env file is created, you can run the server.
 
-```F#
+```nu-script
 # run the server
 py main.py
 ```
