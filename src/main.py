@@ -4,7 +4,8 @@ import discord
 import matplotlib.pyplot as plt
 import datetime
 import time
-from utils import check_list_items_contain, convert_list_to_string, create_chopped_list, tenpercentchange
+from utils import check_list_items_contain, convert_list_to_string, create_chopped_list
+from payment_utils import gen_networth, price_refactor
 
 from dotenv import load_dotenv
 
@@ -24,75 +25,6 @@ intentz.members = True
 
 client = discord.Client(intents = intentz)
 
-def price_refactor(prlist, dateseed, override):
-    #random spikes need to be added
-    for i in range(len(prlist)):
-        vals = prlist[i].split("-")
-        if vals[-1] != dateseed + "\n" or override == True:
-            vals[1] = vals[2]
-            vals[2] = vals[3]
-            vals[3] = vals[4]
-            vals[4] = vals[5]
-            vals[5] = vals[6]
-            vals[6] = vals[7]
-            vals[7] = vals[8]
-
-            tenper = float(vals[8]) / 10
-            if float(vals[8]) < 999.0:
-                if float(vals[6]) >= float(vals[7]) and float(vals[5]) >= float(vals[6]):
-                    if float(vals[4]) >= float(vals[5]) and float(vals[3]) >= float(vals[4]):
-                        pricespike = random.randint(0, 2)
-                        if pricespike == 0:
-                            vals[8] = str(round(random.uniform(tenper, (float(vals[8]) / 2)) + float(vals[8]), 2))
-                        else:
-                            vals[8] = tenpercentchange(tenper, vals[8])
-                    else:
-                        pricespike = random.randint(0, 4)
-                        if pricespike == 0:
-                            vals[8] = str(round(random.uniform(tenper, (float(vals[8]) / 4)) + float(vals[8]), 2))
-                        else:
-                            vals[8] = tenpercentchange(tenper, vals[8])
-                if float(vals[6]) < float(vals[7]) and float(vals[5]) < float(vals[6]):
-                    if float(vals[4]) < float(vals[5]) and float(vals[3]) < float(vals[4]):
-                        pricespike = random.randint(0, 2)
-                        if pricespike == 0:
-                            vals[8] = str(round(random.uniform(-1 * (float(vals[8]) / 2), -1 * tenper) + float(vals[8]), 2))
-                        else:
-                            vals[8] = tenpercentchange(tenper, vals[8])
-                    else:
-                        pricespike = random.randint(0, 4)
-                        if pricespike == 0:
-                            vals[8] = str(round(random.uniform(-1 * (float(vals[8]) / 4), -1 * tenper) + float(vals[8]), 2))
-                        else:
-                            vals[8] = tenpercentchange(tenper, vals[8])
-                else:   
-                    vals[8] = tenpercentchange(tenper, vals[8])
-            else:   
-                vals[8] = tenpercentchange(tenper, vals[8])
-            vals[-1] = dateseed + "\n"
-        prlist[i] = convert_list_to_string(vals)
-    return prlist
-
-def gen_networth(author, peoplelines):
-    choppedList = create_chopped_list(peoplelines, author)
-    lineNum = choppedList.index(author)
-    items = peoplelines[lineNum].split("-")
-    purchaseFile = open(priceFile, "r+")
-    purchase_items = purchaseFile.readlines()
-    purchaseFile.close()
-    items[-1] = items[-1][:-1]
-    worth = 0
-    for i in items:
-        if i != author:
-            try:
-                float(i)
-                worth += float(i)
-            except:
-                itemPos = check_list_items_contain(purchase_items, i)
-                if itemPos != -1:
-                    vals = purchase_items[itemPos].split("-")
-                    worth += float(vals[-2])
-    return round(worth, 2)
 
 @client.event
 async def on_ready():
@@ -163,7 +95,7 @@ async def on_message(message):
                     uservals[11] = uservals[12]
                     uservals[12] = uservals[13]
                     uservals[13] = uservals[14]
-                    uservals[14] = str(gen_networth(messageauth, lines))
+                    uservals[14] = str(gen_networth(messageauth, lines, priceFile))
                     uservals[-1] = date_mod + "\n"
                     networths[netLine] = convert_list_to_string(uservals)
                     networthFile.seek(0)
@@ -178,7 +110,7 @@ async def on_message(message):
                 networths = networthFile.readlines()
                 netPointer = check_list_items_contain(networths, messageauth)
                 uservals = networths[netPointer].split("-")
-                uservals[14] = str(gen_networth(messageauth, lines))
+                uservals[14] = str(gen_networth(messageauth, lines, priceFile))
                 uservals[-1] = date_mod + "\n"
                 networths[netLine] = convert_list_to_string(uservals)
                 networthFile.seek(0)
@@ -232,7 +164,7 @@ async def on_message(message):
             emojiFile.close()
             await message.channel.send("Your current inventory is as follows:" + msgBuffer)
             netLine = check_list_items_contain(networths, message.author.name)
-            if not netLine == -1 and gen_networth(message.author.name, lines) < 100:
+            if not netLine == -1 and gen_networth(message.author.name, lines, priceFile) < 100:
                 await message.channel.send("You are currently poor. Type '-s rewind-time' to restart.")
         else:
             await message.channel.send("You are currently not registered. Type '-s enrol' to register yourself!")
@@ -471,7 +403,7 @@ async def on_message(message):
                 embed = discord.Embed()
                 embed.set_image(url = "attachment://graph.png")
 
-                await message.channel.send("Your current networth is $" + str(gen_networth(message.author.name, lines)))
+                await message.channel.send("Your current networth is $" + str(gen_networth(message.author.name, lines, priceFile)))
                 await message.channel.send(file = file, embed = embed)
             else:
                 await message.channel.send("Error! Unable to retrieve your current networth data.")
@@ -539,7 +471,7 @@ async def on_message(message):
                 defaultNetworth += float(valu)
             
             netLine = check_list_items_contain(networths, message.author.name)
-            if not netLine == -1 and gen_networth(message.author.name, lines) < defaultNetworth:
+            if not netLine == -1 and gen_networth(message.author.name, lines, priceFile) < defaultNetworth:
                 await message.channel.send("Good choice. Rewinding time.")
 
                 usersFile = open(userFile, "r+")
@@ -551,7 +483,7 @@ async def on_message(message):
                 usersFile.close()
                 await message.channel.send("Successfully rewound time.")
             else:
-                choiceMsg = await message.channel.send("Are you sure? Your current networth is $" + str(gen_networth(message.author.name, lines)) + 
+                choiceMsg = await message.channel.send("Are you sure? Your current networth is $" + str(gen_networth(message.author.name, lines, priceFile)) + 
                                            ". \nPerforming this action will lower your networth to $" + str(defaultNetworth) + 
                                            ".\nReact with :white_check_mark: to continue or :x: to cancel this operation.")
                 
