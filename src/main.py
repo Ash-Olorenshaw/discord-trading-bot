@@ -88,7 +88,6 @@ def gen_networth(author, peoplelines):
                 float(i)
                 worth += float(i)
             except:
-                worth
                 itemPos = check_list_items_contain(purchase_items, i)
                 if itemPos != -1:
                     vals = purchase_items[itemPos].split("-")
@@ -197,7 +196,7 @@ async def on_message(message):
         temp_purchase_items.remove(addItem)
         
     if message.content.lower() == "-s help":
-        await message.channel.send("# Currently available commands:\n-s enrol (to begin)\n-s inventory (view your inventory)\n-s value [ITEM NAME] (see the value of an item over the past few days)\n-s shop (see the shop)\n-s buy [ITEM NAME] (buy an item)\n-s sell [ITEM NAME] (sell an item)\n-s items (view all items)\n-s networth me (see your current networth)\n-s networth all (see everyone's networth)")
+        await message.channel.send("# Currently available commands:\n-s enrol (to begin)\n-s inventory (view your inventory)\n-s value [ITEM NAME] (see the value of an item over the past few days)\n-s shop (see the shop)\n-s buy [ITEM NAME] (buy an item)\n-s sell [ITEM NAME] (sell an item)\n-s items (view all items)\n-s networth me (see your current networth)\n-s networth all (see everyone's networth)\n-s rewind-time (reset your items, cash, etc to user defaults)")
     elif message.content == "-s enrol":
         if not check_list_items_contain(lines, message.author.name) == -1:
             await message.channel.send("<@" + str(message.author.id) + "> already enrolled!")
@@ -363,6 +362,7 @@ async def on_message(message):
                     await message.channel.send("Processing request...")
                     time.sleep(3)
                     await message.channel.send("Item total not understood.")
+                    times = 0
             else:
                 sellItem = message.content[8:].lower()
                 times = 1.0
@@ -370,7 +370,7 @@ async def on_message(message):
                 await message.channel.send("Processing request...")
                 time.sleep(3)
                 await message.channel.send("Caught you! Don't try selling negative items!")
-            else:
+            elif times != 0:
                 if not times.is_integer():
                     await message.channel.send("Processing request...")
                     time.sleep(3)

@@ -91,6 +91,9 @@ All commands must be preceded by `-s`, here are all your options:
 
 # display help file with all but admin commands
 -s help
+
+# ⚠️ USER WITH CAUTION! Reset user's money, items, etc to defaults
+-s rewind-time
 ```
 
 ### Admin Commands:
