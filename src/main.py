@@ -49,11 +49,6 @@ async def on_message(message):
     lines = usersFile.readlines()
     usersFile.close()
 
-
-    networthFile = open(worthFile, "r")
-    networths = networthFile.readlines()
-    networthFile.close()
-
     networthFile = open(worthFile, "r")
     networths = networthFile.readlines()
     networthFile.close()
