@@ -7,8 +7,7 @@ A simple Discord bot that attempts to vaguely emulate a real-world stockmarket.
 ## About
 
 Each day the bot will update item values that are in the `prices.txt` file and then generate a selection of items which are purchasable for that day.
-Item values are then graphed for users to see upon request.
-Users then have their items' overall worth calculated each day in a networth which they can also access and have graphed for them.
+Item values are then graphed for users to see upon request; users can also view their items' total worth calculated in a networth graph.
 
 ## Setting up / Running
 
@@ -44,7 +43,7 @@ vi ./.env
 
 The following fields are required for the .env file:
 
-```bash
+```pwsh
 DISCORD_TOKEN=YourBotDiscordToken
 ADMIN=AdminUsername
 ```
@@ -62,7 +61,7 @@ And now you should be able to see your bot in any servers you have invited it to
 
 All commands must be preceded by `-s`, here are all your options:
 
-```Python
+```nu-script
 # to begin; if your account hasn't been recorded yet.
 -s enrol
 
@@ -96,9 +95,9 @@ All commands must be preceded by `-s`, here are all your options:
 
 ### Admin Commands:
 
-the following commands are only available to the user who is 'ADMIN' in the .env file
+the following commands are only available to the user who is `ADMIN` in the `.env` file
 
-```Python
+```nu-script
 # get a user's inventory
 -s admin inv <USERNAME>
 
