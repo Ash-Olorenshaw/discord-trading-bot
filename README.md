@@ -4,6 +4,8 @@
 
 A simple Discord bot that attempts to vaguely emulate a real-world stockmarket.
 
+### NOTE: still WIP since this was originally slapped together quite quickly...
+
 ## About
 
 Each day the bot will update item values that are in the `prices.txt` file and then generate a selection of items which are purchasable for that day.
