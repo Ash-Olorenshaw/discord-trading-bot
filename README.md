@@ -6,7 +6,7 @@ A simple Discord bot that attempts to vaguely emulate a real-world stockmarket.
 
 ## About
 
-Each day the bot will update item values that are in the "prices.txt" file and then generate a selection of items which are purchasable for that day.
+Each day the bot will update item values that are in the `prices.txt` file and then generate a selection of items which are purchasable for that day.
 Item values are then graphed for users to see upon request.
 Users then have their items' overall worth calculated each day in a networth which they can also access and have graphed for them.
 
@@ -42,11 +42,11 @@ vi ./.env
 . ./.env
 ```
 
-The following fields are required for the .env file (without '<>'s):
+The following fields are required for the .env file:
 
-```Python
-DISCORD_TOKEN=<Your Bot Discord Token>
-ADMIN=<Admin Username>
+```bash
+DISCORD_TOKEN=YourBotDiscordToken
+ADMIN=AdminUsername
 ```
 
 Now that the .env file is created, you can run the server.
@@ -57,3 +57,59 @@ py main.py
 ```
 
 And now you should be able to see your bot in any servers you have invited it to!
+
+## Usage
+
+All commands must be preceded by `-s`, here are all your options:
+
+```Python
+# to begin; if your account hasn't been recorded yet.
+-s enrol
+
+# view your inventory
+-s inventory
+
+# see the specified item's value graph
+-s value <ITEM NAME>
+
+# view all items
+-s items 
+
+# see the shop items available for purchase
+-s shop
+
+# buy an item
+-s buy <ITEM NAME>
+
+# sell an item
+-s sell <ITEM NAME>
+
+# see your current user's networth
+-s networth me 
+
+# graph all users' networths together
+-s networth all
+
+# display help file with all but admin commands
+-s help
+```
+
+### Admin Commands:
+
+the following commands are only available to the user who is 'ADMIN' in the .env file
+
+```Python
+# get a user's inventory
+-s admin inv <USERNAME>
+
+# ⚠️ USE WITH CAUTION
+# reroll all of the day's values - EVERY item's value will be rerolled!
+-s admin reroll values
+```
+
+## Known issues
+
+- Currently there are issues with buying names with their shorthand (e.g. buying a `paperplane` with `paper`):
+  - Selling said items requires using the original shorthand you used 
+  - Sometimes this can cause items with similar shorthands (e.g. `Windows PC` and `Windows Laptop`) to be grouped as the same entry in player's inventory
+- Issues with `networth all` being barely readable if one player has greatly inflated networth in comparison to everyone else
