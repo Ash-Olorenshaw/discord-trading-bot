@@ -4,7 +4,7 @@
 
 A simple Discord bot that attempts to vaguely emulate a real-world stockmarket.
 
-### NOTE: still WIP since this was originally slapped together quite quickly...
+#### NOTE: *still WIP since this was originally slapped together quite quickly...*
 
 ## About
 
