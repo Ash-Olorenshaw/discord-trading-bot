@@ -1,6 +1,6 @@
 from utils import check_list_items_contain, convert_list_to_string, create_chopped_list
 
-def create_daily_networths(userFile, worthFile, priceFile, date_mod):
+async def create_daily_networths(userFile, worthFile, priceFile, date_mod):
     #create the day's networths
     usersFile = open(userFile, "r")
     lines = usersFile.readlines()

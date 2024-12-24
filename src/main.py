@@ -3,16 +3,14 @@ import random
 from buy_manager import buy_item
 import discord
 from inventory_manager import gen_user_inv
-import matplotlib.pyplot as plt
 import datetime
-import time
 from dotenv import load_dotenv
 
 from networth_calc import graph_all_networths, graph_user_networth
-from sale_manager import sell_item
-from utils import check_list_items_contain, convert_list_to_string, create_chopped_list
 from payment_utils import price_refactor
-from networth_utils import create_daily_networths, gen_networth
+from sale_manager import sell_item
+from utils import check_list_items_contain
+from networth_utils import create_daily_networths
 from item_manager import gen_items_list, gen_shop_items_list, reroll_daily_item_vals, get_item_val
 from inventory_manager import gen_user_inv_admin
 from enrolment_manager import rewind_time, enrol_user
@@ -71,7 +69,7 @@ async def on_message(message):
     temp_purchase_items = []
     available_items = []
 
-    create_daily_networths(userFile, worthFile, priceFile, date_mod)
+    await create_daily_networths(userFile, worthFile, priceFile, date_mod)
 
     #set up current shop items
     temp_purchase_items = purchase_items.copy()
