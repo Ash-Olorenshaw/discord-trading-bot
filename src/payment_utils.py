@@ -11,6 +11,7 @@ def price_refactor(prlist, dateseed, override):
                 vals[i + 1] = float(vals[i + 2])
 
             tenper = float(vals[8]) / 10
+            vals[8] = float(vals[8])
 
             if vals[8] < 999.0:
                 if vals[6] >= vals[7] and vals[5] >= vals[6]:

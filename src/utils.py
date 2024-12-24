@@ -17,7 +17,7 @@ def create_chopped_list(list, item):
 def convert_list_to_string(list):
     s = ""
     for i in list:
-        s += i
+        s += str(i)
         if i != list[-1]:
             s += "-"
     return s
