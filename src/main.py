@@ -15,7 +15,7 @@ from enrolment_manager import rewind_time, enrol_user
 from inventory_manager import gen_user_inv
 from buy_manager import buy_item
 from globals import default_items, priceFile, refFile, userFile, worthFile
-from arg_parser import parse_args
+#from arg_parser import parse_args
 
 
 load_dotenv()
