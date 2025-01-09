@@ -87,7 +87,7 @@ async def graph_all_networths(message, networths : list[str]):
             for val in a:
                 graphList.append(float(val))
             print(graphList)
-            if not member is None: member = member.display_name
+            if not member is None or not nm == "": member = member.display_name
             plt.plot([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], graphList, label = member)
             
     plt.legend(loc = 'best')
