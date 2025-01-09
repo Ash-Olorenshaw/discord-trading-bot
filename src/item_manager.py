@@ -1,4 +1,5 @@
 import os
+import math
 import datetime
 import discord
 import matplotlib.pyplot as plt
@@ -25,7 +26,20 @@ async def gen_items_list(message, price_file_name : str, ref_file_name : str):
         else:
             msgBuffer += " :arrow_right:"
     emojiFile.close()
-    await message.channel.send("All items:" + msgBuffer + "\n'-s shop' to see what's available for purchase today.")
+    final_msg = "## All items:" + msgBuffer + "\n`-s shop` *to see what's available for purchase today.*"
+    try:
+        await message.channel.send(final_msg)
+    except discord.errors.HTTPException:
+        final_parts_amount = math.ceil(len(final_msg) / 1900)
+        final_parts = final_msg.split("\n")
+        part_len = math.floor(len(final_parts) / final_parts_amount)
+        for part in range(final_parts_amount):
+            if part != (final_parts_amount - 1):
+                finalised_msg = final_parts[(part_len * part):(part_len * (part + 1))]
+            else:
+                finalised_msg = final_parts[(part_len * part):]
+            await message.channel.send("\n".join(finalised_msg))
+
 
 async def gen_shop_items_list(message, available_items : list[str], price_file_name : str, ref_file_name : str):
     # -s shop
@@ -39,7 +53,7 @@ async def gen_shop_items_list(message, available_items : list[str], price_file_n
         item = i.split("-")
         msgBuffer += "\n" + emojis[purchase_items.index(i)][:-1] + " - $" + item[-2]
     emojiFile.close()
-    await message.channel.send("Current items available for purchase are:" + msgBuffer + "\n'-s buy' to purchase an item")
+    await message.channel.send("Current items available for purchase are:" + msgBuffer + "\n`-s buy` *to purchase an item*")
 
 async def reroll_daily_item_vals(message, date_mod : str, price_file_name : str):
     if message.author.name == os.getenv('ADMIN'):
