@@ -13,7 +13,7 @@ Item values are then graphed for users to see upon request; users can also view 
 
 ## Setting up / Running
 
-To get started with the Discord Trading Bot, do the following:
+To get started with the **Discord Trading Bot**, you first require Python >= 3.9 (`python --version`), after confirming that, do the following:
 
 ```nu-script
 # download this repo
@@ -39,7 +39,7 @@ Now that the file is created you need to populate it with the correct info:
 # *nix systems
 vi ./.env
 
-# Windows (open in NotePad)
+# Windows (opens the file in NotePad)
 . ./.env
 ```
 
@@ -113,7 +113,7 @@ the following commands are only available to the user who is `ADMIN` in the `.en
 
 ## Known issues
 
-- Currently there are issues with buying names with their shorthand (e.g. buying a `paperplane` with `paper`):
-  - Selling said items requires using the original shorthand you used 
-  - Sometimes this can cause items with similar shorthands (e.g. `Windows PC` and `Windows Laptop`) to be grouped as the same entry in player's inventory
+- ~Currently there are issues with buying names with their shorthand (e.g. buying a `paperplane` with `paper`):~
+  - ~Selling said items requires using the original shorthand you used~ 
+  - ~Sometimes this can cause items with similar shorthands (e.g. `Windows PC` and `Windows Laptop`) to be grouped as the same entry in player's inventory~ 
 - Issues with `networth all` being barely readable if one player has greatly inflated networth in comparison to everyone else
