@@ -3,6 +3,7 @@ from utils import convert_list_to_string, tenpercentchange
 
 def price_refactor(prlist, dateseed, override):
     #random spikes need to be added
+    new_list = []
     for i in range(len(prlist)):
         vals = prlist[i].split("-")
         if vals[-1] != dateseed + "\n" or override == True:
@@ -45,8 +46,9 @@ def price_refactor(prlist, dateseed, override):
             else:   
                 vals[8] = tenpercentchange(tenper, vals[8])
             vals[-1] = dateseed + "\n"
-        prlist[i] = convert_list_to_string(vals)
-    return prlist
+        new_list.append(convert_list_to_string(vals))
+    print(f"generated {new_list}")
+    return new_list
 
 
 
