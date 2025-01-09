@@ -56,7 +56,7 @@ async def gen_user_inv_admin(message, userfile_lines : list[str], price_file_nam
             items[-1] = items[-1][:-1]
             del items[0]
 
-            msgBuffer = ""
+            msg_buffer = ""
             emojiFile = open(ref_file_name, "r")
             emojis = emojiFile.readlines()
 
@@ -64,18 +64,18 @@ async def gen_user_inv_admin(message, userfile_lines : list[str], price_file_nam
                 if i != author:
                     try:
                         float(i)
-                        msgBuffer += "\n" + "Wallet: $" + i + "\n"
+                        msg_buffer += f"\n**Wallet: ${i}**\n"
 
                     except:
-                        if (" " + i.lower()) not in msgBuffer.lower():
+                        if (" " + i.lower()) not in msg_buffer.lower():
                             if items.count(i.lower()) > 1:
-                                msgBuffer += " (x" + str(items.count(i.lower())) + ") " + emojis[check_list_items_contain(purchase_items, i)]
+                                msg_buffer += f"- {emojis[check_list_items_contain(purchase_items, i)].strip()} (x{items.count(i.lower())})\n"
                             else:
-                                msgBuffer += emojis[check_list_items_contain(purchase_items, i)]
+                                msg_buffer += f"- {emojis[check_list_items_contain(purchase_items, i)].strip()}\n"
 
             emojiFile.close()
 
-            await message.channel.send(author.capitalize() + "'s current inventory is as follows:" + msgBuffer)
+            await message.channel.send(author.capitalize() + "'s current inventory is as follows:" + msg_buffer)
         else:
             await message.channel.send("User " + author.capitalize() + " is not enrolled or doesn't exist.")
     else:
