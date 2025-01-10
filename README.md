@@ -59,6 +59,10 @@ py main.py
 
 And now you should be able to see your bot in any servers you have invited it to!
 
+### NOTE:
+
+You must make sure that the files `networth.txt` and `users.txt` are preceded by a newline before information is stored in them. If they are not, then false data can be generated.
+
 ## Usage
 
 All commands must be preceded by `-s`, here are all your options:
